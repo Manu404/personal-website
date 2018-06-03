@@ -1,0 +1,21 @@
+input {
+  resize: none !important;;
+  background: none !important;;
+  border: 0 !important;;
+  display: block !important;;
+  width: 100% !important;;
+  outline: none !important;;
+  color: #a0a0a0 !important;;
+  cursor: text !important;;
+  white-space: pre-wrap !important;;
+  word-wrap: break-word !important;;
+  padding-left: 1em;
+}
+
+div.inline {
+  float:left;
+}
+
+.clearBoth {
+  clear:both;
+}

@@ -1,0 +1,27 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="container">
+  <div class="row">
+    <h1 style="color: #bcbcbc!important;">EIPWS v0.1</h1>
+  </div>
+  <div class="row">
+    <h4 style="color: #bcbcbc!important;">Emmanuel Istace Personal Website System</h4>
+  </div>
+  <div class="row">
+    <p>----------------------------------------------------------------------------------------------</p>
+  </div>
+  <div class="row">
+    <p>
+      Available commands : bio - work - music - project - contact - clear - help
+    </p>
+  </div>
+  <div class="row">
+    <p>Type help for more information</p>
+  </div>
+
+  <div *ngFor="let command of CommandRepository.TypedCommands">
+    <app-terminal-input></app-terminal-input>
+  </div>
+
+
+</div>

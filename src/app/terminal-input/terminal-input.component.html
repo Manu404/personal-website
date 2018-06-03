@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="inline">
+    <p style="margin-top: 2px">
+      visitor@:~$
+    </p>
+  </div>
+  <div class="inline">
+    <input [(ngModel)]="Command" autofocus="true" (keydown)="OnCommandKeyDown($event)" [disabled]="!this.IsEnabled" #commandInput >
+  </div>
+</div>
+
+<div class="row" style="color: white!important;">
+  <template #contenthost  ></template>
+</div>
