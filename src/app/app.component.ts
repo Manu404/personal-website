@@ -12,5 +12,7 @@ export class AppComponent {
 
   }
 
-  title = 'app';
+  private OpenCommand(command) {
+    this.CommandRepository.TypedCommands.push(command);
+  }
 }

@@ -37,52 +37,67 @@ export class TerminalInputComponent implements OnInit, AfterViewInit {
   public Command = '';
   constructor(public CommandRepository: CommandRepository, private componentFactoryResolver: ComponentFactoryResolver) {
     this.IsEnabled = true;
-    console.debug("test");
+    this.Command = this.CommandRepository.TypedCommands[this.CommandRepository.TypedCommands.length - 1];
   }
 
   ngOnInit() {
+
   }
 
   ngAfterViewInit() {
     this.cmd.nativeElement.focus();
     this.IsEnabled = true;
+
+    if (this.Command.trim() !== '') {
+      this.HandleEnter();
+    }
+
   }
 
   private LoadResult(componentType) {
-    let componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-    let component = componentFactory.create( this.entry.parentInjector);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+    const component = componentFactory.create( this.entry.parentInjector);
     this.entry.insert(component.hostView);
   }
 
   OnCommandKeyDown(event) {
-    if(event.keyCode == 13) {
-      this.IsEnabled = false;
-      this.CommandRepository.TypedCommands.push(this.Command);
+    if(event.keyCode === 13) {
+      this.HandleEnter();
+    }
+  }
 
-      if(this.Command.toLowerCase() === "bio") {
-        this.LoadResult(BioComponent);
-      }
-      else if(this.Command.toLowerCase() == "work") {
-        this.LoadResult(WorkComponent);
-      }
-      else if(this.Command.toLowerCase() == "music") {
-        this.LoadResult(MusicComponent);
-      }
-      else if(this.Command.toLowerCase() == "project") {
-        this.LoadResult(ProjectComponent);
-      }
-      else if(this.Command.toLowerCase() == "contact") {
-        this.LoadResult(ContactComponent);
-      }
-      else if(this.Command.toLowerCase() == "help") {
-        this.LoadResult(HelpComponent);
-      }
-      else if(this.Command.toLowerCase() == "clear") {
-        this.CommandRepository.TypedCommands = [ ' ' ];
-        this.IsEnabled = true;
-      }
-      else
-        this.LoadResult(ErrorComponent);
+  private HandleEnter() {
+    this.IsEnabled = false;
+    this.CommandRepository.TypedCommands.push(this.Command);
+    this.CommandRepository.TypedCommands[this.CommandRepository.TypedCommands.length - 1] = '';
+    this.LoadComponent();
+  }
+
+  private LoadComponent() {
+    if (this.Command.toLowerCase() === 'bio') {
+      this.LoadResult(BioComponent);
+    }
+    else if (this.Command.toLowerCase() === 'work') {
+      this.LoadResult(WorkComponent);
+    }
+    else if (this.Command.toLowerCase() === 'music') {
+      this.LoadResult(MusicComponent);
+    }
+    else if (this.Command.toLowerCase() === 'project') {
+      this.LoadResult(ProjectComponent);
+    }
+    else if (this.Command.toLowerCase() === 'contact') {
+      this.LoadResult(ContactComponent);
+    }
+    else if (this.Command.toLowerCase() === 'help') {
+      this.LoadResult(HelpComponent);
+    }
+    else if (this.Command.toLowerCase() === 'clear') {
+      this.CommandRepository.TypedCommands = [ ' ' ];
+      this.IsEnabled = true;
+    }
+    else {
+      this.LoadResult(ErrorComponent);
     }
   }
 
