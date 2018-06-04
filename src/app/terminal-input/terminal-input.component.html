@@ -5,10 +5,10 @@
     </p>
   </div>
   <div class="inline">
-    <input [(ngModel)]="Command" autofocus="true" (keydown)="OnCommandKeyDown($event)" [disabled]="!this.IsEnabled" #commandInput >
+    <input [(ngModel)]="Command" autofocus="true" (keydown)="OnCommandKeyDown($event)" [(disabled)]="!this.IsEnabled" #commandInput >
   </div>
 </div>
 
 <div class="row" style="color: white!important;">
-  <template #contenthost  ></template>
+  <template #resultHost  ></template>
 </div>

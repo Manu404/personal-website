@@ -2,3 +2,15 @@ span {
   cursor: pointer;
   font-weight: bold;
 }
+
+.rowHeader {
+
+}
+
+hr {
+  border: 0;
+  width: 100%;
+  color: white;
+  background-color: white;
+  height: 1px;
+}

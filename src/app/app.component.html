@@ -1,34 +1,45 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div class="container">
-  <div class="row">
-    <h1 style="color: #bcbcbc!important;">EIPWS v0.1</h1>
-  </div>
-  <div class="row">
-    <h4 style="color: #bcbcbc!important;">Emmanuel Istace Personal Website System</h4>
-  </div>
-  <div class="row">
-    <p>----------------------------------------------------------------------------------------------</p>
-  </div>
-  <div class="row">
-    <p>
-      Available commands :
-      <span (click)="OpenCommand('bio')">bio</span> -
-      <span (click)="OpenCommand('work')">work</span> -
-      <span (click)="OpenCommand('music')">music</span> -
-      <span (click)="OpenCommand('project')">project</span> -
-      <span (click)="OpenCommand('contact')">contact</span> -
-      <span (click)="OpenCommand('clear')">clear</span> -
-      <span (click)="OpenCommand('help')">help</span>
-    </p>
-  </div>
-  <div class="row">
-    <p>Type help for more information</p>
+<div class="container" >
+  <div class="sticky-top" style="background: black !important;" >
+    <div class="row rowHeader">
+      <h1 style="color: #bcbcbc!important;">EIPWS v0.1</h1>
+    </div>
+    <div class="row rowHeader">
+      <h4 style="color: #bcbcbc!important;">Emmanuel Istace Personal Website System</h4>
+    </div>
+    <div class="row rowHeader">
+      <h6 style="color: #bcbcbc!important;">Software under double BeerWare and MIT Licence, type licence for more information</h6>
+    </div>
+    <div class="row rowHeader">
+      <h6 style="color: #bcbcbc!important;">Brewed with love in belgium by istace.emmanuel@hotmail.com</h6>
+    </div>
+    <div class="row rowHeader">
+      <hr />
+    </div>
+    <div class="row rowHeader">
+      <p>
+        Available commands :
+        <u><span (click)="OpenCommand('bio')">bio</span></u> -
+        <u><span (click)="OpenCommand('work')">work</span></u> -
+        <u><span (click)="OpenCommand('music')">music</span></u> -
+        <u><span (click)="OpenCommand('project')">project</span></u> -
+        <u><span (click)="OpenCommand('contact')">contact</span></u> -
+        <u><span (click)="OpenCommand('licence')">licence</span></u> -
+        <u><span (click)="OpenCommand('clear')">clear</span></u> -
+        <u><span (click)="OpenCommand('help')">help</span></u>
+      </p>
+    </div>
+    <div class="row rowHeader">
+      <p>You can click pr type commands to execute, type help for more informations about available commands.</p>
+    </div>
+    <div class="row rowHeader">
+      <hr />
+    </div>
   </div>
 
   <div *ngFor="let command of CommandRepository.TypedCommands">
-    <app-terminal-input></app-terminal-input>
+    <app-terminal-input [Command]="command"></app-terminal-input>
   </div>
-
-
+  <app-terminal-input></app-terminal-input>
 </div>

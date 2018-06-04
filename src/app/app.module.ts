@@ -12,6 +12,7 @@ import { MusicComponent } from './music/music.component';
 import { ProjectComponent } from './project/project.component';
 import { ContactComponent } from './contact/contact.component';
 import { HelpComponent } from './help/help.component';
+import { LicenceComponent } from './licence/licence.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { HelpComponent } from './help/help.component';
     MusicComponent,
     ProjectComponent,
     ContactComponent,
-    HelpComponent
+    HelpComponent,
+    LicenceComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,6 @@ import { HelpComponent } from './help/help.component';
   ],
   providers: [CommandRepository],
   bootstrap: [AppComponent],
-  entryComponents: [BioComponent, ErrorComponent, WorkComponent, MusicComponent, ProjectComponent, ContactComponent, HelpComponent]
+  entryComponents: [BioComponent, ErrorComponent, WorkComponent, MusicComponent, ProjectComponent, ContactComponent, HelpComponent, LicenceComponent]
 })
 export class AppModule { }

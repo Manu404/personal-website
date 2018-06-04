@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-  font-family: Lucida Console !important;
+  font-family: 'Ubuntu Mono', monospace !important;
   background: black !important;;
   color: #a0a0a0 !important;;
   text-align: justify !important;;

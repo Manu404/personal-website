@@ -3,7 +3,7 @@ import {
   Component,
   ComponentFactoryResolver,
   Directive,
-  ElementRef,
+  ElementRef, Input,
   OnInit,
   ViewChild,
   ViewContainerRef
@@ -17,12 +17,7 @@ import {ProjectComponent} from "../project/project.component";
 import {ContactComponent} from "../contact/contact.component";
 import {HelpComponent} from "../help/help.component";
 
-/*@Directive({
-  selector: '[content-host]',
-})
-export class ContentDirective {
-  constructor(public viewContainerRef: ViewContainerRef) { }
-}*/
+import {LicenceComponent} from '../licence/licence.component';
 
 @Component({
   selector: 'app-terminal-input',
@@ -30,14 +25,15 @@ export class ContentDirective {
   styleUrls: ['./terminal-input.component.css']
 })
 export class TerminalInputComponent implements OnInit, AfterViewInit {
-  @ViewChild('contenthost', { read: ViewContainerRef }) entry: ViewContainerRef;
-  @ViewChild('commandInput') cmd:ElementRef;
+  @ViewChild('resultHost', { read: ViewContainerRef }) resultHost: ViewContainerRef;
+  @ViewChild('commandInput') commandInput:ElementRef;
+
+  @Input() Command: string;
 
   public IsEnabled = true;
-  public Command = '';
+
   constructor(public CommandRepository: CommandRepository, private componentFactoryResolver: ComponentFactoryResolver) {
-    this.IsEnabled = true;
-    this.Command = this.CommandRepository.TypedCommands[this.CommandRepository.TypedCommands.length - 1];
+
   }
 
   ngOnInit() {
@@ -45,31 +41,23 @@ export class TerminalInputComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.cmd.nativeElement.focus();
     this.IsEnabled = true;
-
     if (this.Command.trim() !== '') {
-      this.HandleEnter();
+      this.LoadCommandResult();
     }
-
-  }
-
-  private LoadResult(componentType) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
-    const component = componentFactory.create( this.entry.parentInjector);
-    this.entry.insert(component.hostView);
   }
 
   OnCommandKeyDown(event) {
     if(event.keyCode === 13) {
-      this.HandleEnter();
+      this.CommandRepository.AddCommand(this.Command);
+      this.Command = '';
+      this.commandInput.nativeElement.focus();
+      window.scrollTo(0, document.body.scrollHeight);
     }
   }
 
-  private HandleEnter() {
+  private LoadCommandResult() {
     this.IsEnabled = false;
-    this.CommandRepository.TypedCommands.push(this.Command);
-    this.CommandRepository.TypedCommands[this.CommandRepository.TypedCommands.length - 1] = '';
     this.LoadComponent();
   }
 
@@ -89,11 +77,14 @@ export class TerminalInputComponent implements OnInit, AfterViewInit {
     else if (this.Command.toLowerCase() === 'contact') {
       this.LoadResult(ContactComponent);
     }
+    else if (this.Command.toLowerCase() === 'licence') {
+      this.LoadResult(LicenceComponent);
+    }
     else if (this.Command.toLowerCase() === 'help') {
       this.LoadResult(HelpComponent);
     }
     else if (this.Command.toLowerCase() === 'clear') {
-      this.CommandRepository.TypedCommands = [ ' ' ];
+      this.CommandRepository.Clear();
       this.IsEnabled = true;
     }
     else {
@@ -101,4 +92,9 @@ export class TerminalInputComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private LoadResult(componentType) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(componentType);
+    const component = componentFactory.create( this.resultHost.parentInjector);
+    this.resultHost.insert(component.hostView);
+  }
 }
